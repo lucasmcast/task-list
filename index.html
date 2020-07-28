@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareflas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header id="mainHeader">
+		<span id="logo"><img src="css/img/logo.png" /></span> 
+		<ul id="mainMenu">
+			<li class="menuItem" id="menuButton"><a class="menuLink" href=#>Menu</a></li>
+			<li class="menuItem"><a class="menuLink" href=#>Como Funciona</a></li>
+        </ul>  
+	</header>
+    <main>
+        <h1>Lista de Tarefas</h1>
+        <div class="containerInput">
+            <input id="inputAdd" type="text" placeholder="Qual será sua tarefa?"/>
+            <button id=buttonAdd>Adicionar</button>
+        </div>
+        <div class="container">
+            <table id="customers">
+
+            </table>
+        </div>
+    </main>
+    <script src="scripts/tableModels.js"></script>
+    <script src="scripts/tableView.js"></script>
+    <script src="scripts/tableController.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
