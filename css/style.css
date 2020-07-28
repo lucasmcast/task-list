@@ -102,7 +102,6 @@ main h1 {
 }
 
 
-
 #customers{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-collapse: collapse;
@@ -129,6 +128,12 @@ main h1 {
   color: white;
 }
 
+.descricao-col {
+    width: 80%;
+    overflow-wrap: anywhere; /*Define como o conteúdo que ultrapassar os limites deve ser apresentado ao usuário.*/
+}
+
+
 tfoot {
     background-color: #018786;
     color: #fff;
@@ -147,7 +152,7 @@ tfoot {
     box-shadow: 0 5px 5px 0 rgba(25,25, 25, 0.8);
     padding: 10px;
     color: white;
-    margin: 10px;
+    margin: auto;
 }
 
 .btn-finish {
@@ -157,7 +162,7 @@ tfoot {
     box-shadow: 0 5px 5px 0 rgba(25,25, 25, 0.8);
     padding: 10px;
     color: white;
-    margin: 10px;
+    margin: auto;
 }
 
 .btn-edit {
@@ -167,5 +172,5 @@ tfoot {
     box-shadow: 0 5px 5px 0 rgba(25,25, 25, 0.8);
     padding: 10px;
     color: white;
-    margin: 10px;
+    margin: auto;
 }

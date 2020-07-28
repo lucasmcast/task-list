@@ -1,13 +1,26 @@
+/**
+ * Class Model Table
+ * 
+ * Manipulate an html table
+ * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
+ */
 class TableController{
-    
-    renderTable = (itemsTable) => {
+
+    /**
+     * Render table in the html table
+     * 
+     * @param {Array} itemsTable 
+     */
+    renderTable(itemsTable){
         this.table = new TableModel(itemsTable);
         this.table.renderTable()
     }
 
-    addItemTable = () => {
-        /* Adiciona os elementos na tabela 
-        */
+    
+    /**
+     * Add Element in the table
+     */
+    addItemTable(){
         const input = document.getElementById("inputAdd");
         if (input.value == ""){
             alert("Tarefa não foi preenchida!!")
@@ -26,6 +39,8 @@ class TableController{
             let coll3 = linha.insertCell(2);
             let coll4 = linha.insertCell(3);
 
+            coll2.classList.add("descricao-col");
+            
             coll4.classList.add("btn-action");
             let qtd = content.getElementsByTagName("tr").length;
 
