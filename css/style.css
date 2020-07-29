@@ -145,7 +145,7 @@ tfoot {
     justify-content: center;
 }
 
-.btn-del {
+.btn-apagar {
     background: #b00020;
     border: none;
     border-radius: 2px;
@@ -155,7 +155,7 @@ tfoot {
     margin: auto;
 }
 
-.btn-finish {
+.btn-concluir {
     background: #03dac6;
     border: none;
     border-radius: 2px;
@@ -165,7 +165,7 @@ tfoot {
     margin: auto;
 }
 
-.btn-edit {
+.btn-editar {
     background: #3700b3;
     border: none;
     border-radius: 2px;

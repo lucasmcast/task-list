@@ -1,3 +1,4 @@
+
 /**
  * Class Model Table
  * 
@@ -30,7 +31,7 @@ class TableModel{
     }
 
     /**
-     * Create collums of table
+     * Creates collums of table
      * 
      * @param {Array} items 
      * @param {DOMElement} tr 
@@ -45,30 +46,44 @@ class TableModel{
 
     /**
      * Action of button delete row
-     * @param {DOMElement} r 
+     * 
+     * @param {DOMElement} button 
      */
-    clickButtonDel(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("customers").deleteRow(i);
+    clickButtonDel(button) {
+        var i = button.parentNode.parentNode.rowIndex;
+        this.table.deleteRow(i);
     }
 
     /**
      * Action of button finish task row
-     * @param {DOMElement} r 
+     * 
+     * @param {DOMElement}  button
      */
-    clickButtonFinish(r){
-        let line = r.parentNode.parentNode;
-        let status = line.querySelectorAll("td")[2]
+    clickButtonFinish(button, btnEdit){
+        let line = button.parentNode.parentNode;
+        let status = line.querySelectorAll("td")[2];
+        status.style.background = "#C8E6C9"
         status.innerHTML = "Concluído";
-        r.style.display = "none";
+        button.style.display = "none";
+        btnEdit.style.display = "none";
     }
 
     /**
-     * Enable edit descripte of table
-     * @param {DOMElement} r 
+     * Subscribe description of table
+     * 
+     * @param {DOMElement} tarefa 
+     * @param {DOMElement} input 
      */
-    clickButtonEdit(r){
-        let line = r.parentNode.parentNode;
+    saveDescription(tarefa, input){
+        tarefa.innerHTML = input.value;
+    }
+    /**
+     * Enable edit descripte of table
+     * 
+     * @param {DOMElement} button 
+     */
+    clickButtonEdit(button){
+        let line = button.parentNode.parentNode;
         let tarefa = line.querySelectorAll("td")[1]
         
         let btnSalve = document.createElement("button")
@@ -79,10 +94,56 @@ class TableModel{
         tarefa.appendChild(input);
         tarefa.appendChild(btnSalve);
         
-        
-        btnSalve.addEventListener('click', function () {
-            tarefa.innerHTML = input.value
+        btnSalve.addEventListener('click', () => {
+            this.saveDescription(tarefa, input);
         });
+    }
+
+    /**
+     * Creates button element
+     * 
+     * @param {String} buttonName
+     * 
+     * @returns {DOMElement} 
+     */
+    createButton(buttonName){
+        let btn = document.createElement("button");
+        btn.innerHTML = buttonName;
+        let stringClass = "btn-"+buttonName.toLowerCase();
+        btn.classList.add(stringClass);
+
+        return btn;
+    }
+
+    /**
+     * Creates a table structure by inserting a row
+     * 
+     * @param {DOMElement} input 
+     * @param {Array DOMElement} buttons 
+     */
+    createStructureTable(input, buttons){
+        const content = this.content;
+
+        let linha = content.insertRow(-1);
+        let coll1 = linha.insertCell(0);
+        let coll2 = linha.insertCell(1);
+        let coll3 = linha.insertCell(2);
+        let coll4 = linha.insertCell(3);
+
+        coll2.classList.add("descricao-col");
+        coll4.classList.add("btn-action");
+        let qtd =  content.getElementsByTagName("tr").length;
+        
+        coll1.innerHTML = qtd;
+        coll2.innerHTML = input.value;
+        coll3.innerHTML = "Pendente"
+        coll3.style.background = "#FFF9C4"
+
+        for (let i = 0; i < buttons.length; i++){
+            coll4.appendChild(buttons[i])
+        }
+
+        input.value = ""
     }
 
     /**

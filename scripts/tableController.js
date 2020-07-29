@@ -15,8 +15,50 @@ class TableController{
         this.table = new TableModel(itemsTable);
         this.table.renderTable()
     }
-
     
+    /**
+     * Return content tbody of class TableModel
+     * 
+     * @return {}
+     */
+    getContent(){
+        let content = this.table.getContent();
+        return content;
+    }
+
+    /**
+     * Create EventListener of Button Apagar
+     * 
+     * @param {DOMElement} btn 
+     */
+    addEventListenerButtonDel(btn){
+        btn.addEventListener('click', () => {
+            this.table.clickButtonDel(btn);
+        }, false);
+    }
+
+    /**
+     * Create EventListener of Button Editar
+     * 
+     * @param {DOMElement} btn 
+     */
+    addEventListenerButtonEdit(btn){
+        btn.addEventListener('click', () => {
+            this.table.clickButtonEdit(btn);
+        }, false);
+    }
+
+    /**
+     * Create EventListener of Button Concluir
+     * 
+     * @param {DOMElement} btn 
+     */
+    addEventListenerButtonFinish(btn, btnEdit){
+        btn.addEventListener('click', () => {
+            this.table.clickButtonFinish(btn, btnEdit);
+        }, false);
+    }
+
     /**
      * Add Element in the table
      */
@@ -25,49 +67,16 @@ class TableController{
         if (input.value == ""){
             alert("Tarefa não foi preenchida!!")
         }else{
-            let btnDel = document.createElement("button");
-            btnDel.innerHTML = "Apagar";
-            let btnEdit = document.createElement("button");
-            btnEdit.innerHTML = "Editar";
-            let btnFinish = document.createElement("button");
-            btnFinish.innerHTML = "Concluir";
+            let btnDel = this.table.createButton("Apagar");
+            let btnEdit = this.table.createButton("Editar");
+            let btnFinish = this.table.createButton("Concluir");
 
-            const content = this.table.getContent()
-            let linha = content.insertRow(-1);
-            let coll1 = linha.insertCell(0);
-            let coll2 = linha.insertCell(1);
-            let coll3 = linha.insertCell(2);
-            let coll4 = linha.insertCell(3);
-
-            coll2.classList.add("descricao-col");
+            this.addEventListenerButtonDel(btnDel);
+            this.addEventListenerButtonFinish(btnFinish, btnEdit);
+            this.addEventListenerButtonEdit(btnEdit);
             
-            coll4.classList.add("btn-action");
-            let qtd = content.getElementsByTagName("tr").length;
-
-            btnDel.classList.add("btn-del");
-            btnEdit.classList.add("btn-edit");
-            btnFinish.classList.add("btn-finish")
-
-            btnDel.addEventListener('click', () => {
-                this.table.clickButtonDel(btnDel);
-            }, false);
-        
-            btnFinish.addEventListener('click', () => {
-                this.table.clickButtonFinish(btnFinish)
-            }, false);
-
-            btnEdit.addEventListener('click', () => {
-                this.table.clickButtonEdit(btnEdit)
-            })
-
-            coll1.innerHTML = qtd;
-            coll2.innerHTML = input.value;
-            coll3.innerHTML = "Pendente"
-
-            coll4.appendChild(btnDel);
-            coll4.appendChild(btnFinish);
-            coll4.appendChild(btnEdit);
-            input.value = ""
+            let buttons = [btnDel, btnFinish, btnEdit]
+            this.table.createStructureTable(input, buttons);
         }
     }
 
