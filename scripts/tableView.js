@@ -8,7 +8,7 @@ class TableView{
     constructor(teste){
         this.controler = new TableController();
         this.renderTable();
-        this.addEventListenerButton();   
+        this.addEventListenerButton(); 
     }
     
     /**

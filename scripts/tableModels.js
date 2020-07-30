@@ -118,13 +118,33 @@ class TableModel{
     /**
      * Creates a table structure by inserting a row
      * 
-     * @param {DOMElement} input 
+     * @param {DOMElement} allData 
      * @param {Array DOMElement} buttons 
      */
-    createStructureTable(input, buttons){
+    async createStructureTable(allTasks, buttons){
+        debugger;
         const content = this.content;
+        for(let i = 0; i < allTasks.length; i++){
+            let linha = content.insertRow(-1);
+            let coll1 = linha.insertCell(0);
+            let coll2 = linha.insertCell(1);
+            let coll3 = linha.insertCell(2);
+            let coll4 = linha.insertCell(3);
 
-        let linha = content.insertRow(-1);
+            coll2.classList.add("descricao-col");
+            coll4.classList.add("btn-action");
+            let qtd =  content.getElementsByTagName("tr").length;
+        
+            coll1.innerHTML = allData[i].getId();
+            coll2.innerHTML = allData[i].getDescricao();
+            coll3.innerHTML = allData[i].getSituacao();
+            coll3.style.background = "#FFF9C4";
+
+            for (let i = 0; i < buttons.length; i++){
+                coll4.appendChild(buttons[i])
+            }
+        }
+        /* let linha = content.insertRow(-1);
         let coll1 = linha.insertCell(0);
         let coll2 = linha.insertCell(1);
         let coll3 = linha.insertCell(2);
@@ -138,13 +158,14 @@ class TableModel{
         coll2.innerHTML = input.value;
         coll3.innerHTML = "Pendente"
         coll3.style.background = "#FFF9C4"
-
-        for (let i = 0; i < buttons.length; i++){
+ */
+       /*  for (let i = 0; i < buttons.length; i++){
             coll4.appendChild(buttons[i])
-        }
+        } */
 
-        input.value = ""
+        //input.value = ""
     }
+
 
     /**
      * Return content of table
@@ -153,6 +174,27 @@ class TableModel{
      */
     getContent(){
         return this.content;
+    }
+
+    fillLineTable(task, buttons, content){
+        let linha = content.insertRow(-1);
+        let coll1 = linha.insertCell(0);
+        let coll2 = linha.insertCell(1);
+        let coll3 = linha.insertCell(2);
+        let coll4 = linha.insertCell(3);
+
+        coll2.classList.add("descricao-col");
+        coll4.classList.add("btn-action");
+        //let qtd =  content.getElementsByTagName("tr").length;
+        
+        coll1.innerHTML = task.getId();
+        coll2.innerHTML = task.getDescricao();
+        coll3.innerHTML = task.getSituacao();
+        coll3.style.background = "#FFF9C4";
+
+        for (let i = 0; i < buttons.length; i++){
+                coll4.appendChild(buttons[i])
+        }
     }
 
 }
