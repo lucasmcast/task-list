@@ -5,7 +5,7 @@
  * Render table in the html page
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
  */
-class TableModel{
+export default class TableModel{
     
     constructor(items){
         this.items = items;
@@ -121,8 +121,7 @@ class TableModel{
      * @param {DOMElement} allData 
      * @param {Array DOMElement} buttons 
      */
-    async createStructureTable(allTasks, buttons){
-        debugger;
+    createStructureTable(allTasks, buttons){
         const content = this.content;
         for(let i = 0; i < allTasks.length; i++){
             let linha = content.insertRow(-1);
@@ -176,7 +175,8 @@ class TableModel{
         return this.content;
     }
 
-    fillLineTable(task, buttons, content){
+    fillLineTable(task, buttons){
+        let content = this.content;
         let linha = content.insertRow(-1);
         let coll1 = linha.insertCell(0);
         let coll2 = linha.insertCell(1);
@@ -194,6 +194,23 @@ class TableModel{
 
         for (let i = 0; i < buttons.length; i++){
                 coll4.appendChild(buttons[i])
+        }
+    }
+
+    fillTable(allTasks){
+
+        for(let i = 0; i < allTasks.length; i++){
+            let btnDel = this.table.createButton("Apagar");
+            let btnEdit = this.table.createButton("Editar");
+            let btnFinish = this.table.createButton("Concluir");
+
+            this.addEventListenerButtonDel(btnDel);
+            this.addEventListenerButtonFinish(btnFinish, btnEdit);
+            this.addEventListenerButtonEdit(btnEdit);
+            
+            let buttons = [btnDel, btnFinish, btnEdit]
+
+            this.fillLineTable(allTasks[i], buttons);
         }
     }
 

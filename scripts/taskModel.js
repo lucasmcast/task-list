@@ -1,4 +1,4 @@
-class Task{
+export default class Task{
 
     constructor(id, descricao, situacao){
         this.id = id;

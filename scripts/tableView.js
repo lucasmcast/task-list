@@ -1,14 +1,15 @@
+import TableController from './tableController.js'
 /**
  * Class view render table html page and actions button
  * 
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
  */
-class TableView{
+export default class TableView{
 
-    constructor(teste){
+    constructor(){
         this.controler = new TableController();
         this.renderTable();
-        this.addEventListenerButton(); 
+        this.addEventListenerButton();
     }
     
     /**
@@ -28,5 +29,9 @@ class TableView{
     renderTable(){
         const itemsTable = ["ID", "Descrição", "Situação", "Ação"];
         this.controler.renderTable(itemsTable);
+    }
+
+    singleton(){
+        return this;
     }
 }

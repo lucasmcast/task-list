@@ -1,10 +1,13 @@
+import TableModel from './tableModels.js'
+import TaskDAO from './taskDAO.js'
+import Task from './taskModel.js'
 /**
  * Class Model Table
  * 
  * Manipulate an html table
  * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
  */
-class TableController{
+export default class TableController{
 
     /**
      * Render table in the html table
@@ -15,7 +18,7 @@ class TableController{
         this.table = new TableModel(itemsTable);
         this.table.renderTable();
         this.taskDao = new TaskDAO();
-        this.fillTable()
+        this.getAll((tasks) => this.fillTable(tasks));
     }
     
     /**
@@ -83,19 +86,25 @@ class TableController{
             this.addEventListenerButtonEdit(btnEdit);
             
             let buttons = [btnDel, btnFinish, btnEdit]
-            
-            let content = this.table.getContent()
-            this.save(task, buttons, content, this.table.fillLineTable);
+        
+            this.save(task);
+            this.table.fillLineTable(task, buttons);
             input.value = ""
         }
     }
 
 
-    fillTable() {
-        let allTasks= this.taskDao.getAll();
-        let content = this.table.getContent();
+    getAll(callback) {
+        this.taskDao.getAll(callback);
+    }
 
-        for(let i = 0; i < allTasks.length; i++){
+    fillTable(tasks){
+        tasks.forEach(element => {
+            let task = new Task();
+            task.setId(element['id']);
+            task.setDescricao(element['descricao']);
+            task.setSituacao(element['situacao']);
+            
             let btnDel = this.table.createButton("Apagar");
             let btnEdit = this.table.createButton("Editar");
             let btnFinish = this.table.createButton("Concluir");
@@ -106,13 +115,12 @@ class TableController{
             
             let buttons = [btnDel, btnFinish, btnEdit]
 
-            this.table.fillLineTable(allTasks[i], buttons, content);
-        }
+            this.table.fillLineTable(task, buttons)
+        });
     }
 
-    save(task, buttons, content, callback){
+    save(task){
         this.taskDao.save(task);
-        callback(task, buttons, content);
     }
 
 
