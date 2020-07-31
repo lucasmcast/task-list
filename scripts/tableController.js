@@ -1,6 +1,7 @@
 import TableModel from './tableModels.js'
 import TaskDAO from './taskDAO.js'
 import Task from './taskModel.js'
+
 /**
  * Class Model Table
  * 
@@ -9,6 +10,11 @@ import Task from './taskModel.js'
  */
 export default class TableController{
 
+    constructor(){
+        this.taskDao = new TaskDAO();
+        this.getAll((tasks) => this.fillTable(tasks));
+          
+    }
     /**
      * Render table in the html table
      * 
@@ -17,8 +23,7 @@ export default class TableController{
     renderTable(itemsTable){
         this.table = new TableModel(itemsTable);
         this.table.renderTable();
-        this.taskDao = new TaskDAO();
-        this.getAll((tasks) => this.fillTable(tasks));
+        
     }
     
     /**
@@ -77,54 +82,76 @@ export default class TableController{
             task.setDescricao(input.value);
             task.setSituacao("Pendente");
 
-            let btnDel = this.table.createButton("Apagar");
-            let btnEdit = this.table.createButton("Editar");
-            let btnFinish = this.table.createButton("Concluir");
+            let buttons = this.createButtonTable();
 
-            this.addEventListenerButtonDel(btnDel);
-            this.addEventListenerButtonFinish(btnFinish, btnEdit);
-            this.addEventListenerButtonEdit(btnEdit);
-            
-            let buttons = [btnDel, btnFinish, btnEdit]
-        
-            this.save(task);
-            this.table.fillLineTable(task, buttons);
+            let table = this.table;
+            this.save(task, buttons, table, function(element){
+                task.setId(element);
+                table.fillLineTable(task, buttons);
+            });
+
             input.value = ""
         }
     }
 
+    createButtonTable(){
+        let buttons = []
 
-    getAll(callback) {
-        this.taskDao.getAll(callback);
+        let btnDel = this.table.createButton("Apagar");
+        let btnEdit = this.table.createButton("Editar");
+        let btnFinish = this.table.createButton("Concluir");
+
+        this.addEventListenerButtonDel(btnDel);
+        this.addEventListenerButtonFinish(btnFinish, btnEdit);
+        this.addEventListenerButtonEdit(btnEdit);
+
+        buttons.push(btnDel);
+        buttons.push(btnFinish);
+        buttons.push(btnEdit);
+        
+        return buttons;
     }
 
+    /**
+     * Fill table in the html page
+     * 
+     * @param {TaskModel} tasks 
+     */
     fillTable(tasks){
+    
         tasks.forEach(element => {
             let task = new Task();
-            task.setId(element['id']);
-            task.setDescricao(element['descricao']);
-            task.setSituacao(element['situacao']);
+            task.setId(element.id);
+            task.setDescricao(element.descricao);
+            task.setSituacao(element.situacao);
             
-            let btnDel = this.table.createButton("Apagar");
-            let btnEdit = this.table.createButton("Editar");
-            let btnFinish = this.table.createButton("Concluir");
-
-            this.addEventListenerButtonDel(btnDel);
-            this.addEventListenerButtonFinish(btnFinish, btnEdit);
-            this.addEventListenerButtonEdit(btnEdit);
-            
-            let buttons = [btnDel, btnFinish, btnEdit]
+            let buttons = this.createButtonTable();
 
             this.table.fillLineTable(task, buttons)
         });
     }
 
-    save(task){
-        this.taskDao.save(task);
+    /**
+     * get all data of database
+     * 
+     * @param {FunctionCallBack} callback 
+     */
+    getAll(callback) {
+        this.taskDao.getAll(callback);
     }
 
+    /**
+     * 
+     * @param {TaskModel} task 
+     * @param {DOMElement} buttons 
+     * @param {TableModel} table 
+     * @param {function callback} callback 
+     */
+    save(task, buttons, table, callback){
+       this.taskDao.save(task, callback);
+    }
 
-    getAll(){
-        return this.taskDao.getAll()
+    delete(task){
+        this.table.clickButtonDel()
     }
 }

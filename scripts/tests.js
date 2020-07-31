@@ -1,3 +1,10 @@
+import TableModel from "./tableModels.js"
+import TaskDAO from "./taskDAO.js"
+import Task from "./taskModel.js";
+import TableView from "./tableView.js"
+
+const task = new Task();
+const taskDao = new TaskDAO();
 const view = new TableView();
 const model = new TableModel(["ID", "Descricao", "Situacao", "Acao"]);
 
@@ -77,7 +84,6 @@ function testClickButtonEdit(){
     }else{
         console.log("testClickButtonEdit() = Fail")
     }
-    console.log(row[0])
     let description = row[0].getElementsByTagName("td");
     
     let descriptionAfter = input[0].value = "Teste";
@@ -89,10 +95,34 @@ function testClickButtonFinish(){
 
 }
 
+/**
+ * Tests class TaskDAO
+ */
+
+function testSaveTaskDao(){
+    
+}
+
+function testEditTaskDao(){
+
+}
+
+function testGetByIdTaskDao(){
+
+}
+
+/**
+ * Test class 
+ */
+console.log("####### Tests class TableView ##########");
 addeveralItems()
 testAddItemTable() 
 testRenderTableContent()
-testClickButtonDel()
+console.log("###### Tests class TableModel ########");
+//testClickButtonDel()
 testClickButtonEdit()
 testClickButtonFinish()
-
+console.log("###### Tests class TaskDAO #######")
+testSaveTaskDao();
+testEditTaskDao();
+testGetByIdTaskDao();

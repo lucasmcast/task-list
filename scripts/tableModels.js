@@ -1,4 +1,4 @@
-
+import TaskDAO from './taskDAO.js'
 /**
  * Class Model Table
  * 
@@ -14,6 +14,7 @@ export default class TableModel{
         this.tr = document.createElement("tr");
         this.createLineCol(this.items, this.tr);
         this.content = document.createElement("tbody");
+        this.taskDao = new TaskDAO();
     }
 
     /**
@@ -51,9 +52,15 @@ export default class TableModel{
      */
     clickButtonDel(button) {
         var i = button.parentNode.parentNode.rowIndex;
+        let id = button.parentNode.parentNode.querySelectorAll("td")[0].innerHTML
+
+        this.taskDao.delete(parseInt(id));        
         this.table.deleteRow(i);
     }
 
+    getById(id, callback){
+        this.taskDao.getById(id, callback);
+    }
     /**
      * Action of button finish task row
      * 
@@ -143,26 +150,6 @@ export default class TableModel{
                 coll4.appendChild(buttons[i])
             }
         }
-        /* let linha = content.insertRow(-1);
-        let coll1 = linha.insertCell(0);
-        let coll2 = linha.insertCell(1);
-        let coll3 = linha.insertCell(2);
-        let coll4 = linha.insertCell(3);
-
-        coll2.classList.add("descricao-col");
-        coll4.classList.add("btn-action");
-        let qtd =  content.getElementsByTagName("tr").length;
-        
-        coll1.innerHTML = qtd;
-        coll2.innerHTML = input.value;
-        coll3.innerHTML = "Pendente"
-        coll3.style.background = "#FFF9C4"
- */
-       /*  for (let i = 0; i < buttons.length; i++){
-            coll4.appendChild(buttons[i])
-        } */
-
-        //input.value = ""
     }
 
 
@@ -185,8 +172,8 @@ export default class TableModel{
 
         coll2.classList.add("descricao-col");
         coll4.classList.add("btn-action");
-        //let qtd =  content.getElementsByTagName("tr").length;
-        
+        let qtd =  content.getElementsByTagName("tr").length;
+
         coll1.innerHTML = task.getId();
         coll2.innerHTML = task.getDescricao();
         coll3.innerHTML = task.getSituacao();
@@ -210,7 +197,7 @@ export default class TableModel{
             
             let buttons = [btnDel, btnFinish, btnEdit]
 
-            this.fillLineTable(allTasks[i], buttons);
+            this.fillLineTable(allTasks[i], buttons, content);
         }
     }
 

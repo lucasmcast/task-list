@@ -15,7 +15,8 @@ export default class DataBase{
         this.request.onupgradeneeded = function(e){
             this.db = e.target.result;
         
-            const tasks = this.db.createObjectStore("tasks", {autoIncrement: "id"});
+            const tasks = this.db.createObjectStore("tasks",  { keyPath: "id", autoIncrement:true });
+            tasks.createIndex("id", "id",)
             tasks.createIndex("descricao", "descricao", { unique: false });
             tasks.createIndex("situacao", "situacao", {unique: false});
         

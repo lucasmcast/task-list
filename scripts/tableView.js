@@ -22,7 +22,6 @@ export default class TableView{
         });
     }
    
-
     /**
      * Render table in the html page
      */
