@@ -58,9 +58,6 @@ export default class TableModel{
         this.table.deleteRow(i);
     }
 
-    getById(id, callback){
-        this.taskDao.getById(id, callback);
-    }
     /**
      * Action of button finish task row
      * 
@@ -162,6 +159,12 @@ export default class TableModel{
         return this.content;
     }
 
+    /**
+     * Fill each line in the table
+     * 
+     * @param {TaskModel} task 
+     * @param {DOMElement} buttons 
+     */
     fillLineTable(task, buttons){
         let content = this.content;
         let linha = content.insertRow(-1);
@@ -184,6 +187,11 @@ export default class TableModel{
         }
     }
 
+    /**
+     * Fill all tasks in the table
+     * 
+     * @param {Array<Task>} allTasks 
+     */
     fillTable(allTasks){
 
         for(let i = 0; i < allTasks.length; i++){

@@ -1,11 +1,23 @@
 import DataBase from './appDB.js'
 import Task from './taskModel.js'
 
+/**
+ * Class responsible for making persistence in the database
+ * 
+ * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
+ * 
+ */
 export default class TaskDAO{
     constructor(){
         this.db = new DataBase();
     }
 
+    /**
+     * Save in the database
+     * 
+     * @param {Task Model} task 
+     * @param {Function callback} callback 
+     */
     save(task, callback){
         this.db.con((db) => {
             var transaction = db.transaction(["tasks"], "readwrite");
@@ -30,7 +42,11 @@ export default class TaskDAO{
         
     }
 
-
+    /**
+     * Get all datas in the database
+     * 
+     * @param {Function calback} callback 
+     */
     getAll(callback){
         this.db.con((db) => {
             var objectStore = db.transaction(['tasks']).objectStore('tasks');
@@ -61,6 +77,11 @@ export default class TaskDAO{
         })
     }
 
+    /**
+     * delete data of database
+     * 
+     * @param {Integer} id 
+     */
     delete(id){
         this.db.con((db) => {
             var request = db.transaction(["tasks"], "readwrite")

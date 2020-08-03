@@ -94,6 +94,10 @@ export default class TableController{
         }
     }
 
+    /**
+     * Creates buttons for add in the database
+     * 
+     */
     createButtonTable(){
         let buttons = []
 
@@ -151,6 +155,11 @@ export default class TableController{
        this.taskDao.save(task, callback);
     }
 
+    /**
+     * Call function of class DAO(delete)
+     * 
+     * @param {Task Model} task 
+     */
     delete(task){
         this.table.clickButtonDel()
     }

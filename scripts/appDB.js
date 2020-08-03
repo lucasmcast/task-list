@@ -1,10 +1,20 @@
 //window.indexedDB =  window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 
+/**
+ * Class of Data Base
+ * 
+ * @author Lucas Martins de Castro <lucas.martins.c03@gmail.com>
+ */
 export default class DataBase{
 
     constructor(){
         this.con((db) => {});
     }
+    /**
+     * Make connetion with database
+     * 
+     * @param {Function Callback} callback 
+     */
     con(callback){
         this.db = null;
         this.request  = indexedDB.open("DBtask", 1);

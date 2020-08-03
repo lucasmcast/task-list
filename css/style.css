@@ -4,6 +4,9 @@ body {
     margin: 0;
 }
 
+main {
+    align-items: center;
+}
 #logo {
     height: 32px;
     margin: 1rem;
@@ -99,6 +102,8 @@ main h1 {
     display: flex;
     margin-bottom: 20px;
     justify-content: center;
+    max-height: 580px;
+    overflow: auto; 
 }
 
 
@@ -146,6 +151,7 @@ tfoot {
 }
 
 .btn-apagar {
+    display: inline-block;
     background: #b00020;
     border: none;
     border-radius: 2px;
@@ -153,9 +159,11 @@ tfoot {
     padding: 10px;
     color: white;
     margin: auto;
+    width: 80px;
 }
 
 .btn-concluir {
+    display: inline-block;
     background: #03dac6;
     border: none;
     border-radius: 2px;
@@ -163,9 +171,11 @@ tfoot {
     padding: 10px;
     color: white;
     margin: auto;
+    width: 80px;
 }
 
 .btn-editar {
+    display: inline-block;
     background: #3700b3;
     border: none;
     border-radius: 2px;
@@ -173,4 +183,28 @@ tfoot {
     padding: 10px;
     color: white;
     margin: auto;
+    width: 80px;
+}
+
+@media (max-width: 600px){
+    .btn-action{
+        display: block;
+    }
+
+    .btn-apagar {
+        width: 70px;
+    }
+    .btn-concluir {
+        width: 70px;
+    }
+
+    .btn-editar {
+        width: 70px;
+    }
+    
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 5px;
+        font-size: 15px;
+    }
 }
